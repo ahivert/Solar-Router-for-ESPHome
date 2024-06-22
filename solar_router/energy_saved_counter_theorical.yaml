@@ -22,7 +22,8 @@ interval:
 
 # Sensor showing the actual energy saved consumption
 sensor:
-  - platform: total_daily_energy
+  - id: energy_saved
+    platform: total_daily_energy
     name: 'Total Daily Energy'
     power_id: energy_saved
     unit_of_measurement: 'kWh'
