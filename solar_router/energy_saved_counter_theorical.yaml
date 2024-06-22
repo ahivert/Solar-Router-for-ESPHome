@@ -2,7 +2,7 @@
 # Calculate daily energy saved
 # ----------------------------------------------------------------------------------------------------
 
-# Define the poser of load plugged on the solar router
+# Define the power of load plugged on the solar router
 number:
   platform: template
     name: "Load power"
@@ -14,7 +14,7 @@ number:
     optimistic: True
     mode: slider
 
-# Calculate poser saved bease on load power and regulator opening
+# Calculate power saved bease on load power and regulator opening
 interval:
   - interval: 30s
     then:
