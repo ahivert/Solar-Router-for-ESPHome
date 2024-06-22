@@ -81,5 +81,6 @@ packages:
   solar_router:
     url: https://github.com/XavierBerger/Solar-Router-for-ESPHome/
     file: solar_router/solar_router_engine.yaml
-    refresh: 5s
-
+  counter:
+    url: https://github.com/XavierBerger/Solar-Router-for-ESPHome/
+    file: solar_router/energy_saved_counter_theorical.yaml
