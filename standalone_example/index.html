@@ -91,7 +91,7 @@
 <span class=normal>82</span>
 <span class=normal>83</span>
 <span class=normal>84</span></pre></div></td><td class=code><div class=highlight><pre><span></span><code><span class=c1># ----------------------------------------------------------------------------------------------------</span><span class=w></span>
-<span class=c1># Wifi configuration - This part depends on your hardware target</span><span class=w></span>
+<span class=c1># ESPHome configuration - This part depends on your hardware target</span><span class=w></span>
 <span class=c1># ----------------------------------------------------------------------------------------------------</span><span class=w></span>
 
 <span class=nt>esphome</span><span class=p>:</span><span class=w></span>
@@ -116,9 +116,10 @@
 <span class=w>    </span><span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=kt>!secret</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">api_encryption_key</span><span class=w></span>
 
 
+<span class=c1># Enable over-the-air updates</span><span class=w></span>
 <span class=nt>ota</span><span class=p>:</span><span class=w></span>
-<span class=w>  </span><span class=nt>platform</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">esphome</span><span class=w></span>
-<span class=w>  </span><span class=nt>password</span><span class=p>:</span><span class=w> </span><span class=kt>!secret</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">solar_router_ota_password</span><span class=w></span>
+<span class=w>  </span><span class="p p-Indicator">-</span><span class=w> </span><span class=nt>platform</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">esphome</span><span class=w></span>
+<span class=w>    </span><span class=nt>password</span><span class=p>:</span><span class=w> </span><span class=kt>!secret</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">solar_router_ota_password</span><span class=w></span>
 
 <span class=c1># Enable improv serial</span><span class=w></span>
 <span class=nt>improv_serial</span><span class=p>:</span><span class=w></span>
@@ -141,8 +142,7 @@
 
 <span class=nt>substitutions</span><span class=p>:</span><span class=w></span>
 <span class=w>  </span><span class=c1># Power meter source -----------------------------------------------------------</span><span class=w></span>
-<span class=w>  </span><span class=c1># Define ip address of inverter</span><span class=w></span>
-<span class=w>  </span><span class=c1># Required for : Fronius</span><span class=w></span>
+<span class=w>  </span><span class=c1># Define ip address of Power Meter (Fronius Inverter)</span><span class=w></span>
 <span class=w>  </span><span class=nt>power_meter_ip_address</span><span class=p>:</span><span class=w> </span><span class=s>&quot;192.168.1.21&quot;</span><span class=w></span>
 
 
@@ -152,9 +152,9 @@
 <span class=w>  </span><span class=c1># Regulator configuration </span><span class=w></span>
 <span class=w>  </span><span class=c1># Define GPIO pin connected to AC Dimmer for gate and zero crossing detection.</span><span class=w></span>
 <span class=w>  </span><span class=nt>regulator_gate_pin</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">GPIO22</span><span class=w></span>
-<span class=w>  </span><span class=nt>regulator_zero_crossing_pin</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span><span class=w> </span>
+<span class=w>  </span><span class=nt>regulator_zero_crossing_pin</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span><span class=w></span>
 
-<span class=w>  </span><span class=c1># LEDs ------------------------------------------------------------------------- </span><span class=w></span>
+<span class=w>  </span><span class=c1># LEDs -------------------------------------------------------------------------</span><span class=w></span>
 <span class=w>  </span><span class=c1># Green LED is reflecting regulation status</span><span class=w></span>
 <span class=w>  </span><span class=c1># Yellow LED is reflecting power meter status</span><span class=w></span>
 <span class=w>  </span><span class=nt>green_led_pin</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">GPIO19</span><span class=w></span>
