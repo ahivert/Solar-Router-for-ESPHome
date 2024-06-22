@@ -71,8 +71,27 @@
 <span class=normal>62</span>
 <span class=normal>63</span>
 <span class=normal>64</span>
-<span class=normal>65</span></pre></div></td><td class=code><div class=highlight><pre><span></span><code><span class=c1># ----------------------------------------------------------------------------------------------------</span><span class=w></span>
-<span class=c1># ESPHome configuration - This part depends on your hardware target</span><span class=w></span>
+<span class=normal>65</span>
+<span class=normal>66</span>
+<span class=normal>67</span>
+<span class=normal>68</span>
+<span class=normal>69</span>
+<span class=normal>70</span>
+<span class=normal>71</span>
+<span class=normal>72</span>
+<span class=normal>73</span>
+<span class=normal>74</span>
+<span class=normal>75</span>
+<span class=normal>76</span>
+<span class=normal>77</span>
+<span class=normal>78</span>
+<span class=normal>79</span>
+<span class=normal>80</span>
+<span class=normal>81</span>
+<span class=normal>82</span>
+<span class=normal>83</span>
+<span class=normal>84</span></pre></div></td><td class=code><div class=highlight><pre><span></span><code><span class=c1># ----------------------------------------------------------------------------------------------------</span><span class=w></span>
+<span class=c1># Wifi configuration - This part depends on your hardware target</span><span class=w></span>
 <span class=c1># ----------------------------------------------------------------------------------------------------</span><span class=w></span>
 
 <span class=nt>esphome</span><span class=p>:</span><span class=w></span>
@@ -86,16 +105,23 @@
 
 <span class=c1># Enable logging</span><span class=w></span>
 <span class=nt>logger</span><span class=p>:</span><span class=w></span>
-<span class=w>  </span><span class=nt>baud_rate</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class=w></span>
+<span class=w>  </span><span class=nt>baud_rate</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">115200</span><span class=w></span>
 <span class=w>  </span><span class=nt>level</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span><span class=w></span>
 <span class=w>  </span><span class=nt>logs</span><span class=p>:</span><span class=w></span>
 <span class=w>    </span><span class=nt>component</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">ERROR</span><span class=w></span>
 
 <span class=c1># Enable Home Assistant API</span><span class=w></span>
 <span class=nt>api</span><span class=p>:</span><span class=w></span>
+<span class=w>  </span><span class=nt>encryption</span><span class=p>:</span><span class=w></span>
+<span class=w>    </span><span class=nt>key</span><span class=p>:</span><span class=w> </span><span class=kt>!secret</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">api_encryption_key</span><span class=w></span>
 
-<span class=c1># Enable over-the-air updates</span><span class=w></span>
+
 <span class=nt>ota</span><span class=p>:</span><span class=w></span>
+<span class=w>  </span><span class=nt>platform</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">esphome</span><span class=w></span>
+<span class=w>  </span><span class=nt>password</span><span class=p>:</span><span class=w> </span><span class=kt>!secret</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">solar_router_ota_password</span><span class=w></span>
+
+<span class=c1># Enable improv serial</span><span class=w></span>
+<span class=nt>improv_serial</span><span class=p>:</span><span class=w></span>
 
 <span class=c1># WiFi connection</span><span class=w></span>
 <span class=nt>wifi</span><span class=p>:</span><span class=w></span>
@@ -110,17 +136,25 @@
 <span class=c1># Customisation</span><span class=w></span>
 <span class=c1># ----------------------------------------------------------------------------------------------------</span><span class=w></span>
 
+<span class=c1># This part of the script is designed to be use for customisation. It shouldn&#39;t be necessary to</span><span class=w></span>
+<span class=c1># edit other part of the script to perform configuration.</span><span class=w></span>
+
 <span class=nt>substitutions</span><span class=p>:</span><span class=w></span>
 <span class=w>  </span><span class=c1># Power meter source -----------------------------------------------------------</span><span class=w></span>
-<span class=w>  </span><span class=c1># Define ip address of Fronius inverter</span><span class=w></span>
+<span class=w>  </span><span class=c1># Define ip address of inverter</span><span class=w></span>
+<span class=w>  </span><span class=c1># Required for : Fronius</span><span class=w></span>
 <span class=w>  </span><span class=nt>power_meter_ip_address</span><span class=p>:</span><span class=w> </span><span class=s>&quot;192.168.1.21&quot;</span><span class=w></span>
 
-<span class=w>  </span><span class=c1># Regulator configuration ------------------------------------------------------</span><span class=w></span>
+
+<span class=w>  </span><span class=c1># Regulator --------------------------------------------------------------------</span><span class=w></span>
+<span class=w>  </span><span class=nt>regulator</span><span class=p>:</span><span class=w> </span><span class=s>&quot;ac_dimmer&quot;</span><span class=w></span>
+
+<span class=w>  </span><span class=c1># Regulator configuration </span><span class=w></span>
 <span class=w>  </span><span class=c1># Define GPIO pin connected to AC Dimmer for gate and zero crossing detection.</span><span class=w></span>
 <span class=w>  </span><span class=nt>regulator_gate_pin</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">GPIO22</span><span class=w></span>
-<span class=w>  </span><span class=nt>regulator_zero_crossing_pin</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span><span class=w></span>
+<span class=w>  </span><span class=nt>regulator_zero_crossing_pin</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">GPIO23</span><span class=w> </span>
 
-<span class=w>  </span><span class=c1># LEDs -------------------------------------------------------------------------</span><span class=w></span>
+<span class=w>  </span><span class=c1># LEDs ------------------------------------------------------------------------- </span><span class=w></span>
 <span class=w>  </span><span class=c1># Green LED is reflecting regulation status</span><span class=w></span>
 <span class=w>  </span><span class=c1># Yellow LED is reflecting power meter status</span><span class=w></span>
 <span class=w>  </span><span class=nt>green_led_pin</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">GPIO19</span><span class=w></span>
@@ -130,12 +164,16 @@
 <span class=w>  </span><span class=nt>power_meter</span><span class=p>:</span><span class=w></span>
 <span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/XavierBerger/Solar-Router-for-ESPHome/</span><span class=w></span>
 <span class=w>    </span><span class=nt>file</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">solar_router/power_meter_fronius.yaml</span><span class=w></span>
+<span class=w>    </span><span class=nt>refresh</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">5s</span><span class=w></span>
 <span class=w>  </span><span class=nt>regulator</span><span class=p>:</span><span class=w></span>
 <span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/XavierBerger/Solar-Router-for-ESPHome/</span><span class=w></span>
 <span class=w>    </span><span class=nt>file</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">solar_router/regulator_triac.yaml</span><span class=w></span>
+<span class=w>    </span><span class=c1># file: solar_router/regulator_relay.yaml</span><span class=w></span>
+<span class=w>    </span><span class=nt>refresh</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">5s</span><span class=w></span>
 <span class=w>  </span><span class=nt>solar_router</span><span class=p>:</span><span class=w></span>
 <span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/XavierBerger/Solar-Router-for-ESPHome/</span><span class=w></span>
 <span class=w>    </span><span class=nt>file</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">solar_router/solar_router_engine.yaml</span><span class=w></span>
+<span class=w>    </span><span class=nt>refresh</span><span class=p>:</span><span class=w> </span><span class="l l-Scalar l-Scalar-Plain">5s</span><span class=w></span>
 </code></pre></div> </td></tr></table> <hr> <div class=md-source-date> <small> Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">April 3, 2024 16:49:10</span> </small> </div> </article> </div> </div> </main> <footer class=md-footer> <nav class="md-footer__inner md-grid" aria-label=Footer> <a href=../installation/ class="md-footer__link md-footer__link--prev" aria-label="Previous: Installation" rel=prev> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg> </div> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Previous </span> Installation </div> </div> </a> <a href=../proxy_example/ class="md-footer__link md-footer__link--next" aria-label="Next: With proxy" rel=next> <div class=md-footer__title> <div class=md-ellipsis> <span class=md-footer__direction> Next </span> With proxy </div> </div> <div class="md-footer__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg> </div> </a> </nav> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright> Made with <a href=https://squidfunk.github.io/mkdocs-material/ target=_blank rel=noopener> Material for MkDocs </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "..", "features": ["tabs", "content.code.copy"], "search": "../assets/javascripts/workers/search.709b4209.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script> <script src=../assets/javascripts/bundle.febc23d1.min.js></script> <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
 document$.subscribe(() => { lightbox.reload() });
 </script></body> </html>
