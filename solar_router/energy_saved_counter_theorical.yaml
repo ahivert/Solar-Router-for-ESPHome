@@ -4,7 +4,7 @@
 
 # Define the power of load plugged on the solar router
 number:
-  platform: template
+  - platform: template
     name: "Load power"
     id: load_power
     min_value: 0
