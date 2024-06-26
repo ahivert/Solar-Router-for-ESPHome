@@ -1,9 +1,6 @@
 # ----------------------------------------------------------------------------------------------------
 # Sensor updated every second to give feedback in Home Assistant
 # ----------------------------------------------------------------------------------------------------
-defaults:
-  index: "0"
-
 sensor:
   # Sensor showing the actual power consumption
   - id: real_power
@@ -16,16 +13,15 @@ sensor:
 # ----------------------------------------------------------------------------------------------------
 # Use http request component
 # ----------------------------------------------------------------------------------------------------
-
 http_request:
   id: http_request_data
   useragent: esphome/device
   timeout: 10s
+  verify_ssl: False
 
 # ----------------------------------------------------------------------------------------------------
 # Define scripts for power collection
 # ----------------------------------------------------------------------------------------------------
-
 script:
   # Shelly script gather power reports from Energy Meter and update globals (real_power)
   # Information are provided as json. Power exchanged with the grid is names "power"
@@ -39,15 +35,14 @@ script:
             wifi.connected:
           then:
             - http_request.get:
-                url: http://${power_meter_ip_address}/emeter/${index}
-                headers:
-                  Content-Type: application/json
-                verify_ssl: False
+                url: http://${power_meter_ip_address}/emeter/${emeter_index}
+                capture_response: true
                 on_response:
                   then:
                     - lambda: |-
-                        json::parse_json(id(http_request_data).get_string(), [](JsonObject data) {
-                          id(real_power).publish_state(data["power"].as< float >());
+                        json::parse_json(body, [](JsonObject root) -> bool {
+                          id(real_power).publish_state(root["power"].as< float >());
+                          return true;
                         });
 
 time:
